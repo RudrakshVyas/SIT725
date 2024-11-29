@@ -29,3 +29,42 @@ app.get('/add', (req, res) => {
 app.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}`);
 }); 
+
+
+const { MongoClient } = require('mongodb');
+
+// Connection URL
+const url = 'mongodb://127.0.0.1:27017';
+const client = new MongoClient(url);
+
+// Database Name
+const dbName = 'myDatabase';
+
+async function main() {
+  try {
+    // Connect to the MongoDB server
+    await client.connect();
+    console.log('Connected successfully to MongoDB');
+
+    const db = client.db(dbName);
+
+    // Example: Access a collection
+    const collection = db.collection('myCollection');
+
+    // Example: Insert a document
+    const insertResult = await collection.insertOne({ name: 'John', age: 30 });
+    console.log('Inserted document:', insertResult);
+
+    // Example: Find documents
+    const findResult = await collection.find({}).toArray();
+    console.log('Found documents:', findResult);
+
+  } catch (error) {
+    console.error('An error occurred:', error);
+  } finally {
+    // Ensure the client will close when you finish
+    await client.close();
+  }
+}
+
+main().catch(console.error);
