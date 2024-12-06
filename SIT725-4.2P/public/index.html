@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Importing Google Icon Font -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Importing Materialize CSS -->
+  <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+  <title>Express Web App</title>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="#section1">Features</a></li>
+        <li><a href="#section2">Pricing <span class="new badge">4</span></a></li>
+        <li><a href="#section3">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h3>Welcome to My express Web App</h3>
+
+    <!-- Buttons -->
+    <div class="section">
+      <a class="waves-effect waves-light btn" id="button1">Default Button</a>
+      <a class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>Button with Icon</a>
+      <a class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>Right Icon Button</a>
+    </div>
+
+    <!-- Modal Trigger -->
+    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Open Modal</a>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quia placeat voluptatem esse sit quasi porro consequuntur dolorum doloribus! Eveniet quasi quod earum cumque dolore quibusdam nostrum dicta eum distinctio.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+      </div>
+    </div>
+
+    <!-- Cards for Features -->
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">First feature</span>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil quia illum accusamus consectetur consequuntur numquam eaque iste necessitatibus fugit a deserunt, omnis impedit delectus cum officia in aliquam expedita magnam?</p>
+          </div>
+          <div class="card-action">
+            <a href="#">Learn More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m6">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">second feature</span>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem atque nulla dignissimos consequuntur illo soluta architecto ab inventore libero eveniet, quibusdam pariatur! Hic cum veniam aliquid voluptates totam qui doloremque.</p>
+          </div>
+          <div class="card-action">
+            <a href="#">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Footer Content</h5>
+          <p class="grey-text text-lighten-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, beatae enim dolorem unde et nam illum, sint repellendus delectus vitae aperiam voluptates cumque doloremque ipsam quasi reiciendis nihil doloribus libero?</p>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Links</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+  <script type="text/javascript" src="js/extra.js"></script>
+  <script>
+    // Initialize Materialize Components
+    document.addEventListener('DOMContentLoaded', function() {
+      // Modal Initialization
+      const modals = document.querySelectorAll('.modal');
+      M.Modal.init(modals);
+    });
+  </script>
+</body>
+</html>
