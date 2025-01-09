@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share-A-Bite</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <h1>Share-A-Bite</h1>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#upload">Upload Food</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <h1>Upload Food Details</h1>
+        <form id="foodForm">
+            <label for="hotelName">Hotel/User Name:</label>
+            <input type="text" id="hotelName" name="hotelName" required pattern="^[a-zA-Z\s]+$" title="Name must contain only alphabets.">
+
+            <label for="foodDescription">Description of Food:</label>
+            <textarea id="foodDescription" name="foodDescription" rows="4" required></textarea>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" placeholder="Enter location">
+
+            <button type="submit">Submit</button>
+        </form>
+        <p id="responseMessage"></p>
+
+        <h2>Uploaded Food Entries</h2>
+        <div id="foodGallery">
+            <!-- Food entries will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; Share-A-Bite. All rights reserved.</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.socket.io/4.5.1/socket.io.min.js"></script>
+    <script>
+        const socket = io(); // Initialize Socket.IO client
+
+        // Handle form submission
+        document.getElementById('foodForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const hotelName = document.getElementById('hotelName').value.trim();
+            const foodDescription = document.getElementById('foodDescription').value.trim();
+            const location = document.getElementById('location').value.trim();
+            const messageElement = document.getElementById('responseMessage');
+
+            // Basic validation
+            if (!hotelName || !foodDescription || !location) {
+                messageElement.textContent = "All fields are required.";
+                messageElement.style.color = 'red';
+                return;
+            }
+
+            try {
+                // Send form data to the server
+                const response = await fetch('/api/food-waste', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        hotelName,
+                        foodDescription,
+                        location,
+                    }),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    messageElement.textContent = result.message || "Food waste data uploaded successfully!";
+                    messageElement.style.color = 'green';
+                } else {
+                    messageElement.textContent = result.error || "Failed to upload food waste data.";
+                    messageElement.style.color = 'red';
+                }
+            } catch (error) {
+                messageElement.textContent = "An error occurred while uploading.";
+                messageElement.style.color = 'red';
+            }
+        });
+
+        // Listen for real-time updates
+        socket.on('newFoodEntry', (entry) => {
+            const foodGallery = document.getElementById('foodGallery');
+            const foodCard = document.createElement('div');
+            foodCard.className = 'food-card';
+            foodCard.innerHTML = `
+                <h3>${entry.hotelName}</h3>
+                <p>${entry.foodDescription}</p>
+                <p><strong>Location:</strong> ${entry.location}</p>
+            `;
+            foodGallery.appendChild(foodCard);
+        });
+    </script>
+</body>
+</html>

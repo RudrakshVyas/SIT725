@@ -1,0 +1,30 @@
+{
+  "name": "food-waste-management",
+  "version": "1.0.0",
+  "description": "A simple food waste management app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "mocha 'test/**/*.test.js'"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "glob": "^11.0.0",
+    "mongodb": "^4.1.0",
+    "mongoose": "^8.9.1",
+    "request": "^2.88.2",
+    "socket.io": "^4.8.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.5.0",
+    "chai-http": "^4.4.0",
+    "mocha": "^11.0.1",
+    "mongodb-memory-server": "^10.1.2",
+    "socket.io-client": "^4.8.1"
+  }
+}
