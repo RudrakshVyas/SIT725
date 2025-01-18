@@ -1,19 +1,29 @@
 const Mocha = require('mocha');
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const app = require('./server'); // Import your Express app
+const app = require('./server');
+const http = require('http');
 
-// Setup Chai
-chai.use(chaiHttp);
-const { expect } = chai;
-
-// Create a Mocha instance
 const mocha = new Mocha();
+mocha.addFile('./test/routes.test.js');
+mocha.addFile('./test/model.test.js');
 
-// Add test files to Mocha instance
-mocha.addFile('./test/routes.test.js'); // Adjust this path to match your actual test file
+const TEST_PORT = 4000; // Use a different port for testing
+let server;
 
-// Run the tests
-mocha.run(failures => {
-    process.exit(failures); // Exit with a non-zero code if there are test failures
-});
+try {
+    server = http.createServer(app).listen(TEST_PORT, () => {
+        console.log(`Test server running on http://localhost:${TEST_PORT}`);
+        mocha.run((failures) => {
+            server.close(() => {
+                console.log('Test server stopped.');
+                process.exitCode = failures ? 1 : 0;
+            });
+        });
+    });
+} catch (error) {
+    if (error.code === 'EADDRINUSE') {
+        console.error(`Port ${TEST_PORT} is already in use. Please free it and try again.`);
+        process.exit(1);
+    } else {
+        throw error;
+    }
+}
